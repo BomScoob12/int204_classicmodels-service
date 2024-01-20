@@ -41,7 +41,7 @@ public class EmployeeService {
                 throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Conflict Employee number ( " + empNumber + " vs " + employee.getId());
             }
         }
-        Employee existingEmployee = this.getEmployee(empNumber);
+        this.getEmployee(empNumber);
         return repository.save(employee);
     }
 }
