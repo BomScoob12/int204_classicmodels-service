@@ -18,6 +18,11 @@ public class EmployeeController {
         return service.getAllEmployees();
     }
 
+    @GetMapping("/{empNumber}")
+    public Employee getEmployeeById(@PathVariable Integer empNumber) {
+        return service.getEmployee(empNumber);
+    }
+
     @PostMapping("")
     public Employee addNewEmployee(@RequestBody Employee employee) {
         return service.createNewEmployee(employee);
