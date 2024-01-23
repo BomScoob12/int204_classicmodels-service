@@ -9,7 +9,7 @@ import sit.int204.classicmodelsservice.model.Student;
 public class StudentGradeService {
     public static Character gradeCalculator(double score){
         if (score < 0 || score > 100) {
-            throw new IllegalArgumentException("Invalid score. Score must be between 0 and 100.");
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid score" + score + ". Score must be between 0 and 100.");
         }
 
         if (score >= 90) {
