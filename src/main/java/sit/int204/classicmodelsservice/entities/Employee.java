@@ -15,7 +15,7 @@ public class Employee {
     private Integer id;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "officeCode")
+    @JoinColumn(name = "officeCode", nullable = false)
     private Office office;
     @Column(name = "lastName", nullable = false, length = 50)
     private String lastName;
@@ -23,7 +23,7 @@ public class Employee {
     private String firstName;
     @Column(name = "extension", nullable = false, length = 10)
     private String extension;
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
     @JsonIgnore
     @ManyToOne

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import sit.int204.classicmodelsservice.entities.Employee;
+import sit.int204.classicmodelsservice.entities.Office;
 import sit.int204.classicmodelsservice.repositories.EmployeeRepository;
+import sit.int204.classicmodelsservice.repositories.OfficeRepository;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class EmployeeService {
     //auto create object
     @Autowired
     private EmployeeRepository repository;
+    private OfficeRepository officeRepository;
 
     public List<Employee> getAllEmployees() {
         return repository.findAll();
@@ -26,7 +29,14 @@ public class EmployeeService {
 
     @Transactional
     public Employee createNewEmployee(Employee employee) {
-        return repository.save(employee);
+        Office office = officeRepository.findById(employee.getOffice().getOfficeCode())
+                .orElse(null);
+        if (office == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Office Id DOES NOT EXIST !!!");
+        } else {
+            employee.setOffice(office);
+            return repository.save(employee);
+        }
     }
 
     @Transactional

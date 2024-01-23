@@ -1,7 +1,6 @@
 package sit.int204.classicmodelsservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
