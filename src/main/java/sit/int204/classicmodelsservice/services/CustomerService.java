@@ -43,7 +43,7 @@ public class CustomerService {
     public Customer updateCustomer(Integer customerId, Customer customer) {
         if (customer.getId() != null && customer.getId() != 0) {
             if (!customer.getId().equals(customerId)) {
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Conflict Employee number ( " + empNumber + " vs " + employee.getId());
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Conflict Employee number ( " + customerId + " vs " + customer.getId());
             }
         }
         //check customer id has in database
