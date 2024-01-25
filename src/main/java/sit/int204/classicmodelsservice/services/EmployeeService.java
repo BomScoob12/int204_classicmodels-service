@@ -28,9 +28,8 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Employee createNewEmployee(Employee employee) {
-        Office office = officeRepository.findById(employee.getOffice().getOfficeCode())
-                .orElse(null);
+    public Employee createNewEmployee(Employee employee, String officeId) {
+        Office office = officeRepository.findById(officeId).orElse(null);
         if (office == null) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Office Id DOES NOT EXIST !!!");
         } else {
