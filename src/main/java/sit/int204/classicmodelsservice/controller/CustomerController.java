@@ -3,7 +3,6 @@ package sit.int204.classicmodelsservice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sit.int204.classicmodelsservice.entities.Customer;
-import sit.int204.classicmodelsservice.entities.Employee;
 import sit.int204.classicmodelsservice.services.CustomerService;
 
 import java.util.List;
