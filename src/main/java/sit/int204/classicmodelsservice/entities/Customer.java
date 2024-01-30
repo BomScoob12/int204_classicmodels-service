@@ -33,6 +33,7 @@ public class Customer {
     private String postalCode;
     @Column(name = "country", nullable = false)
     private String country;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "salesRepEmployeeNumber", nullable = false)
     private Employee employeeRep;

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import sit.int204.classicmodelsservice.entities.Customer;
-import sit.int204.classicmodelsservice.entities.Employee;
 import sit.int204.classicmodelsservice.repositories.CustomerRepository;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
 public class CustomerService {
     @Autowired
     CustomerRepository repository;
+    EmployeeService service;
 
     public List<Customer> getAllCustomers() {
         return repository.findAll();
@@ -25,11 +25,11 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer createNewCustomer(Customer customer, Employee employee) {
-        if (customer == null || employee == null) {
+    public Customer createNewCustomer(Customer customer, Integer empNumber) {
+        if (customer == null || empNumber == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer or Employee is doesn't exist or invalid data !!!");
         } else {
-            customer.setEmployeeRep(employee);
+            customer.setEmployeeRep(service.getEmployee(empNumber));
             return repository.save(customer);
         }
     }
