@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import sit.int204.classicmodelsservice.entities.Customer;
+import sit.int204.classicmodelsservice.entities.Order;
 import sit.int204.classicmodelsservice.repositories.CustomerRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CustomerService {
@@ -22,6 +24,10 @@ public class CustomerService {
 
     public Customer getCustomer(Integer customerId) {
         return repository.findById(customerId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Customer Number " + customerId + " DOES NOT EXIST !!!"));
+    }
+
+    public Set<Order> getCustomerOrder(Integer customerId) {
+        return this.getCustomer(customerId).getOrders();
     }
 
     @Transactional

@@ -3,9 +3,11 @@ package sit.int204.classicmodelsservice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sit.int204.classicmodelsservice.entities.Customer;
+import sit.int204.classicmodelsservice.entities.Order;
 import sit.int204.classicmodelsservice.services.CustomerService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -23,6 +25,10 @@ public class CustomerController {
         return service.getCustomer(customerNumber);
     }
 
+    @GetMapping("/{customerNumber}/orders")
+    public Set<Order> getCustomerOrders(@PathVariable Integer customerNumber){
+        return service.getCustomerOrder(customerNumber);
+    }
     @PostMapping("")
     public Customer addNewCustomer(@RequestBody Customer customer, @RequestBody Integer empNumber) {
         return service.createNewCustomer(customer, empNumber);

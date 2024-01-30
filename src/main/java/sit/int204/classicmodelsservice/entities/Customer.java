@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -39,4 +42,7 @@ public class Customer {
     private Employee employeeRep;
     @Column(name = "creditLimit", nullable = false)
     private Double creditLimit;
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new LinkedHashSet<>();
 }
