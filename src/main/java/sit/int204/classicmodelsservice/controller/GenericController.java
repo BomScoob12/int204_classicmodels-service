@@ -6,7 +6,7 @@ import sit.int204.classicmodelsservice.services.ServiceInterface;
 
 import java.util.List;
 
-public final class GenericController <SERVICE extends ServiceInterface<ENTITY, KEY_TYPE>, ENTITY, KEY_TYPE> {
+public abstract class GenericController <SERVICE extends ServiceInterface<ENTITY, KEY_TYPE>, ENTITY, KEY_TYPE> {
     public SERVICE service;
 
     @Autowired
