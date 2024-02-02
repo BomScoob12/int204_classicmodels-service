@@ -6,13 +6,9 @@ import sit.int204.classicmodelsservice.services.ServiceInterface;
 
 import java.util.List;
 
-public abstract class GenericController <SERVICE extends ServiceInterface<ENTITY, KEY_TYPE>, ENTITY, KEY_TYPE> {
-    public SERVICE service;
-
+public abstract class GenericController <S extends ServiceInterface<ENTITY, KEY_TYPE>, ENTITY, KEY_TYPE> {
     @Autowired
-    public void setService(SERVICE service) {
-        this.service = service;
-    }
+    private S service;
 
     @GetMapping("")
     public List<ENTITY> getAllEntities() {
