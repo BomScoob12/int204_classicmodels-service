@@ -1,6 +1,7 @@
 package sit.int204.classicmodelsservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import sit.int204.classicmodelsservice.services.ServiceInterface;
 
@@ -20,18 +21,18 @@ public abstract class GenericController <S extends ServiceInterface<ENTITY, KEY_
         return service.getEntity(id);
     }
 
-//    @PostMapping("")
-//    public ENTITY addNewEntity(@RequestBody ENTITY entity) {
-//        return service.createNewEntity(entity);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ENTITY updateEntity(@RequestBody ENTITY entity, @PathVariable KEY_TYPE id) {
-//        return service.updateEntity(id, entity);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public void removeEntity(@PathVariable KEY_TYPE id) {
-//        service.removeEntity(id);
-//    }
+    @PostMapping("")
+    public ENTITY addNewEntity(@RequestBody ENTITY entity) {
+        return service.createNewEntity(entity);
+    }
+
+    @PutMapping("/{id}")
+    public ENTITY updateEntity(@PathVariable KEY_TYPE id, @RequestBody ENTITY entity) {
+        return service.updateEntity(id, entity);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeEntity(@PathVariable KEY_TYPE id) {
+        service.removeEntity(id);
+    }
 }
