@@ -14,7 +14,7 @@ import java.util.Date;
 public class Order {
     @Id
     @Column(name = "orderNumber", nullable = false)
-    private Integer orderId;
+    private Integer id;
     private Date orderDate;
     private Date requiredDate;
     private Date shippedDate;
