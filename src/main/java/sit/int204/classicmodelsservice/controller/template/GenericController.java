@@ -7,7 +7,7 @@ import sit.int204.classicmodelsservice.services.template.ServiceInterface;
 
 import java.util.List;
 
-public abstract class GenericController <S extends ServiceInterface<ENTITY, KEY_TYPE>, ENTITY, KEY_TYPE> {
+public abstract class GenericController <S extends ServiceInterface<E, KEY>, E, KEY> implements EndPointsInterface<E, KEY>{
     protected final S service;
     @Autowired
     public GenericController(S service) {
@@ -15,27 +15,27 @@ public abstract class GenericController <S extends ServiceInterface<ENTITY, KEY_
     }
 
     @GetMapping("")
-    public List<ENTITY> getAllEntities() {
+    public List<E> getAllEntities() {
         return service.getAllEntities();
     }
 
     @GetMapping("/{id}")
-    public ENTITY getEntityById(@PathVariable KEY_TYPE id) {
+    public E getEntityById(@PathVariable KEY id) {
         return service.getEntity(id);
     }
 
     @PostMapping("")
-    public ENTITY addNewEntity(@RequestBody ENTITY entity) {
+    public E addNewEntity(@RequestBody E entity) {
         return service.createNewEntity(entity);
     }
 
     @PutMapping("/{id}")
-    public ENTITY updateEntity(@PathVariable KEY_TYPE id, @RequestBody ENTITY entity) {
+    public E updateEntity(@PathVariable KEY id, @RequestBody E entity) {
         return service.updateEntity(id, entity);
     }
 
     @DeleteMapping("/{id}")
-    public void removeEntity(@PathVariable KEY_TYPE id) {
+    public void removeEntity(@PathVariable KEY id) {
         service.removeEntity(id);
     }
 }
