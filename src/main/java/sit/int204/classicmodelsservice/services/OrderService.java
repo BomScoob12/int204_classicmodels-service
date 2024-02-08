@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import sit.int204.classicmodelsservice.entities.Order;
 import sit.int204.classicmodelsservice.repositories.OrderRepository;
+import sit.int204.classicmodelsservice.services.template.ServiceInterface;
 
 import java.util.List;
 
 @Service
-public class OrderService implements ServiceInterface<Order, Integer>{
+public class OrderService implements ServiceInterface<Order, Integer> {
     @Autowired
     OrderRepository repository;
 

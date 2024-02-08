@@ -1,14 +1,18 @@
-package sit.int204.classicmodelsservice.controller;
+package sit.int204.classicmodelsservice.controller.template;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sit.int204.classicmodelsservice.services.ServiceInterface;
+import sit.int204.classicmodelsservice.services.template.ServiceInterface;
 
 import java.util.List;
 
 public abstract class GenericController <S extends ServiceInterface<ENTITY, KEY_TYPE>, ENTITY, KEY_TYPE> {
+    protected final S service;
     @Autowired
-    private S service;
+    public GenericController(S service) {
+        this.service = service;
+    }
 
     @GetMapping("")
     public List<ENTITY> getAllEntities() {

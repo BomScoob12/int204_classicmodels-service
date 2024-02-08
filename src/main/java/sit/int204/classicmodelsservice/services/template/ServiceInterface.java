@@ -1,4 +1,4 @@
-package sit.int204.classicmodelsservice.services;
+package sit.int204.classicmodelsservice.services.template;
 
 import java.util.List;
 
