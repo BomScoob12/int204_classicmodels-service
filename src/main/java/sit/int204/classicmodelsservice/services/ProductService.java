@@ -8,6 +8,7 @@ import sit.int204.classicmodelsservice.repositories.ProductRepository;
 import sit.int204.classicmodelsservice.services.template.ServiceInterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -15,25 +16,39 @@ public class ProductService implements ServiceInterface<Product, String> {
     @Autowired
     ProductRepository repository;
 
-    public List<Product> findAllEntities() {
-        return repository.findAll();
-    }
+    public List<Product> findAllEntities(String name, Double lower, Double upper, String[] sortBy, String direction) {
 
-    public List<Product> findAllEntities(String name, Double lower, Double upper, String sortBy, String direction) {
         List<Sort.Order> sortProducts = new ArrayList<>();
-        Sort.Order order1 = new Sort.Order(Sort.Direction.fromString(direction), sortBy);
-        sortProducts.add(order1);
 
-        if (lower > upper) {
-            double temp = upper;
-            upper = lower;
-            lower = temp;
-        }
+        if (sortBy != null && sortBy.length != 0) {
+            Arrays.stream(sortBy).forEach((String sortVar) -> {
+                Sort.Order sortOrder = new Sort.Order(Sort.Direction.fromString(direction), sortVar);
+                sortProducts.add(sortOrder);
+            });
 
-        if (upper <= 0 && lower <= 0) {
-            return repository.findByProductNameContainingIgnoreCase(name, Sort.by(sortProducts));
+            if (lower > upper) {
+                double temp = upper;
+                upper = lower;
+                lower = temp;
+            }
+
+            if (upper <= 0 && lower <= 0) {
+                return repository.findByProductNameContainingIgnoreCase(name, Sort.by(sortProducts));
+            } else {
+                return repository.findByProductNameContainingIgnoreCaseAndPriceBetween(name, lower, upper, Sort.by(sortProducts));
+            }
         } else {
-            return repository.findByProductNameContainingIgnoreCaseAndPriceBetween(name, lower, upper, Sort.by(sortProducts));
+            if (lower > upper) {
+                double temp = upper;
+                upper = lower;
+                lower = temp;
+            }
+
+            if (upper <= 0 && lower <= 0) {
+                return repository.findByProductNameContainingIgnoreCase(name);
+            } else {
+                return repository.findByProductNameContainingIgnoreCaseAndPriceBetween(name, lower, upper);
+            }
         }
     }
 
