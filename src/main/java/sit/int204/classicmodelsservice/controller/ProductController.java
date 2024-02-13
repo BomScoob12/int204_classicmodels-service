@@ -16,8 +16,10 @@ public class ProductController{
     @GetMapping("")
     public List<Product> findAllProduct(@RequestParam(required = false, defaultValue = "0") Double lower,
                                         @RequestParam(required = false, defaultValue = "0") Double upper,
-                                        @RequestParam(required = false, defaultValue = "") String name) {
-        return service.findAllEntities(name, lower, upper);
+                                        @RequestParam(required = false, defaultValue = "") String name,
+                                        @RequestParam(required = false, defaultValue = "") String sortBy,
+                                        @RequestParam(required = false, defaultValue = "asc") String sortDirection) {
+        return service.findAllEntities(name, lower, upper, sortBy, sortDirection);
     }
 
     @GetMapping("/product-line/{id}")

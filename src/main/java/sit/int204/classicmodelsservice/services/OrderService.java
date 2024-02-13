@@ -43,7 +43,6 @@ public class OrderService implements ServiceInterface<Order, Integer> {
         } else {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Order ID: " + id + "is does not exists");
         }
-
     }
 
     @Override

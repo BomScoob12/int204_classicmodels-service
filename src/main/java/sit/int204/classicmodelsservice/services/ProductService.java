@@ -1,11 +1,13 @@
 package sit.int204.classicmodelsservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sit.int204.classicmodelsservice.entities.Product;
 import sit.int204.classicmodelsservice.repositories.ProductRepository;
 import sit.int204.classicmodelsservice.services.template.ServiceInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,16 +19,21 @@ public class ProductService implements ServiceInterface<Product, String> {
         return repository.findAll();
     }
 
-    public List<Product> findAllEntities(String name, Double lower, Double upper) {
+    public List<Product> findAllEntities(String name, Double lower, Double upper, String sortBy, String direction) {
+        List<Sort.Order> sortProducts = new ArrayList<>();
+        Sort.Order order1 = new Sort.Order(Sort.Direction.fromString(direction), sortBy);
+        sortProducts.add(order1);
+
         if (lower > upper) {
             double temp = upper;
             upper = lower;
             lower = temp;
         }
-        if (upper + lower > 0) {
-            return repository.findByProductNameContainingIgnoreCaseAndPriceBetween(name, lower, upper);
+
+        if (upper <= 0 && lower <= 0) {
+            return repository.findByProductNameContainingIgnoreCase(name, Sort.by(sortProducts));
         } else {
-            return repository.findByProductNameContainingIgnoreCase(name);
+            return repository.findByProductNameContainingIgnoreCaseAndPriceBetween(name, lower, upper, Sort.by(sortProducts));
         }
     }
 

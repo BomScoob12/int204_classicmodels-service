@@ -15,10 +15,4 @@ public class OrderController extends GenericController<OrderService, Order, Inte
     public OrderController(OrderService service) {
         super(service);
     }
-
-    @Override
-    @GetMapping("")
-    public List<Order> getAllEntities() {
-        throw new UnsupportedOperationException("This end point is unsupported already.");
-    }
 }
