@@ -36,9 +36,9 @@ public class OfficeService {
     }
 
     public Office updateOffice(String officeCode, Office office) {
-        if (office.getOfficeCode() != null && !office.getOfficeCode().trim().isEmpty()) {
-            if (!office.getOfficeCode().equals(officeCode)) {
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Conflict Office code  !!! (" + officeCode + " vs " + office.getOfficeCode() + ")");
+        if (office.getId() != null && !office.getId().trim().isEmpty()) {
+            if (!office.getId().equals(officeCode)) {
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Conflict Office code  !!! (" + officeCode + " vs " + office.getId() + ")");
             }
         }
         Office existingOffice = repository.findById(officeCode).orElseThrow(

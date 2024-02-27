@@ -15,7 +15,7 @@ import java.util.Set;
 public class Office {
     @Id
     @Column(name = "officeCode", nullable = false, length = 10)
-    private String officeCode;
+    private String id;
     @Column(name = "city", nullable = false, length = 50)
     private String city;
     @Column(name = "phone", nullable = false, length = 50)

@@ -1,6 +1,8 @@
 package sit.int204.classicmodelsservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +20,12 @@ public class CustomerService {
     CustomerRepository repository;
     EmployeeService service;
 
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getCustomers() {
         return repository.findAll();
+    }
+
+    public Page<Customer> getCustomers(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public Customer getCustomer(Integer customerId) {
