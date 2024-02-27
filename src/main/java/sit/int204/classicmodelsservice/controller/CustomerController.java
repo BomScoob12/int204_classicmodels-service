@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sit.int204.classicmodelsservice.dtos.PageDTO;
 import sit.int204.classicmodelsservice.entities.Customer;
 import sit.int204.classicmodelsservice.entities.Order;
 import sit.int204.classicmodelsservice.dtos.SimpleCustomerDTO;
@@ -30,9 +29,9 @@ public class CustomerController {
                                                     @RequestParam(defaultValue = "10") int pageSize) {
         if (pageable) {
             Page<Customer> customerPage = service.getCustomers(page, pageSize);
-            return ResponseEntity.ok(listMapper.toPageDTO(customerPage, SimpleCustomerDTO.class, modelMapper));
+            return ResponseEntity.ok(listMapper.toPageDTO(customerPage, SimpleCustomerDTO.class));
         } else {
-            return ResponseEntity.ok(listMapper.mapList(service.getCustomers(), SimpleCustomerDTO.class, modelMapper));
+            return ResponseEntity.ok(listMapper.mapList(service.getCustomers(), SimpleCustomerDTO.class));
         }
     }
 
