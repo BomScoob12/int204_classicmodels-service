@@ -2,7 +2,6 @@ package sit.int204.classicmodelsservice.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.ui.ModelMap;
 import sit.int204.classicmodelsservice.dtos.PageDTO;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ListMapper {
     private static final ListMapper listMapper = new ListMapper();
-    private static ModelMapper modelMapper = new ModelMapper();
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     private ListMapper() {
     }
