@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import sit.int204.classicmodelsservice.entities.Customer;
 import sit.int204.classicmodelsservice.entities.Order;
+import sit.int204.classicmodelsservice.exceptions.ItemNotFoundException;
 import sit.int204.classicmodelsservice.repositories.CustomerRepository;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class CustomerService {
     }
 
     public Customer getCustomer(Integer customerId) {
-        return repository.findById(customerId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Customer Number " + customerId + " DOES NOT EXIST !!!"));
+        return repository.findById(customerId).orElseThrow(() -> new ItemNotFoundException("Customer not found Id " + customerId + " Does not exist."));
     }
 
     public Set<Order> getCustomerOrder(Integer customerId) {

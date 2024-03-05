@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import sit.int204.classicmodelsservice.entities.Office;
+import sit.int204.classicmodelsservice.exceptions.ItemNotFoundException;
 import sit.int204.classicmodelsservice.repositories.OfficeRepository;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class OfficeService {
     }
 
     public Office getOffice(String officeCode) {
-        return repository.findById(officeCode).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Office Id " + officeCode + " DOES NOT EXIST !!!") {
+        return repository.findById(officeCode).orElseThrow(() -> new ItemNotFoundException("Office Id " + officeCode + " DOES NOT EXIST !!!") {
         });
     }
 
@@ -31,7 +32,7 @@ public class OfficeService {
 
     @Transactional
     public void removeOffice(String officeCode) {
-        Office office = repository.findById(officeCode).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Office Id " + officeCode + " DOES NOT EXIST !!!"));
+        Office office = this.getOffice(officeCode);
         repository.delete(office);
     }
 
