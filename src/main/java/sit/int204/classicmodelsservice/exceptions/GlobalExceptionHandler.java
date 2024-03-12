@@ -60,6 +60,24 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
+
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+//    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
+//            MethodArgumentNotValidException ex,
+//            WebRequest request
+//    ) {
+//        ErrorResponse errorResponse = new ErrorResponse(
+//                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+//                "Validation error. Check 'errors' field for details.", request.getDescription(false)
+//        );
+//        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
+//            errorResponse.addValidationError(fieldError.getField(),
+//                    fieldError.getDefaultMessage());
+//        }
+//        return ResponseEntity.unprocessableEntity().body(errorResponse);
+//    }
+
 }
 
 

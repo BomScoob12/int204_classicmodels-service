@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SimpleCustomerDTO {
+public class SimpleCustomerDto {
     private String customerName;
     private String phone;
     private String city;
     private String country;
-    private SimpleEmployeeDTO employeeRep;
+    private SimpleEmployeeDto employeeRep;
 
     public String getEmployeeRep() {
-        return employeeRep == null ?  "-" : employeeRep.getName() + "-" + employeeRep.getOfficeCity();
+        return employeeRep == null ?  "-" : employeeRep.getName();
     }
 }

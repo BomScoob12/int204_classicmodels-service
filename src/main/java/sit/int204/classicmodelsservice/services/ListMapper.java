@@ -2,7 +2,7 @@ package sit.int204.classicmodelsservice.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import sit.int204.classicmodelsservice.dtos.PageDTO;
+import sit.int204.classicmodelsservice.dtos.PageDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,15 +28,15 @@ public class ListMapper {
                 .collect(Collectors.toList());
     }
 
-    public <S, T> PageDTO<T> toPageDTO(Page<S> source, Class<T> targetClass,
+    public <S, T> PageDto<T> toPageDTO(Page<S> source, Class<T> targetClass,
                                        ModelMapper modelMapper) {
-        PageDTO<T> page = modelMapper.map(source, PageDTO.class);
+        PageDto<T> page = modelMapper.map(source, PageDto.class);
         page.setContent(mapList(source.getContent(), targetClass, modelMapper));
         return page;
     }
 
-    public <S, T> PageDTO<T> toPageDTO(Page<S> source, Class<T> targetClass) {
-        PageDTO<T> page = modelMapper.map(source, PageDTO.class);
+    public <S, T> PageDto<T> toPageDTO(Page<S> source, Class<T> targetClass) {
+        PageDto<T> page = modelMapper.map(source, PageDto.class);
         page.setContent(mapList(source.getContent(), targetClass, modelMapper));
         return page;
     }

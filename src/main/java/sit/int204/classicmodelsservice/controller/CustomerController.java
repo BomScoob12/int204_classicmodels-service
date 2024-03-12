@@ -1,18 +1,15 @@
 package sit.int204.classicmodelsservice.controller;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
+import sit.int204.classicmodelsservice.dtos.NewCustomerDto;
+import sit.int204.classicmodelsservice.dtos.SimpleCustomerDto;
 import sit.int204.classicmodelsservice.entities.Customer;
 import sit.int204.classicmodelsservice.entities.Order;
-import sit.int204.classicmodelsservice.dtos.SimpleCustomerDTO;
-import sit.int204.classicmodelsservice.exceptions.ErrorResponse;
-import sit.int204.classicmodelsservice.exceptions.GeneralException;
-import sit.int204.classicmodelsservice.exceptions.ItemNotFoundException;
 import sit.int204.classicmodelsservice.services.CustomerService;
 import sit.int204.classicmodelsservice.services.ListMapper;
 
@@ -22,27 +19,27 @@ import java.util.Set;
 @RequestMapping("/api/customers")
 public class CustomerController {
     @Autowired
+    ListMapper listMapper;
+    @Autowired
     private CustomerService service;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    ListMapper listMapper;
 
     @GetMapping("")
     public ResponseEntity<Object> getAllCustomers(@RequestParam(defaultValue = "false") boolean pageable,
-                                                    @RequestParam(defaultValue = "0") int page,
-                                                    @RequestParam(defaultValue = "10") int pageSize) {
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int pageSize) {
         if (pageable) {
             Page<Customer> customerPage = service.getCustomers(page, pageSize);
-            return ResponseEntity.ok(listMapper.toPageDTO(customerPage, SimpleCustomerDTO.class));
+            return ResponseEntity.ok(listMapper.toPageDTO(customerPage, SimpleCustomerDto.class));
         } else {
-            return ResponseEntity.ok(listMapper.mapList(service.getCustomers(), SimpleCustomerDTO.class));
+            return ResponseEntity.ok(listMapper.mapList(service.getCustomers(), SimpleCustomerDto.class));
         }
     }
 
     @GetMapping("/{customerNumber}")
     public ResponseEntity<Object> getCustomerById(@PathVariable Integer customerNumber) {
-        SimpleCustomerDTO simpleCustomer = modelMapper.map(service.getCustomer(customerNumber), SimpleCustomerDTO.class);
+        SimpleCustomerDto simpleCustomer = modelMapper.map(service.getCustomer(customerNumber), SimpleCustomerDto.class);
         return ResponseEntity.ok(simpleCustomer);
     }
 
@@ -51,10 +48,10 @@ public class CustomerController {
         return service.getCustomerOrder(customerNumber);
     }
 
-    @PostMapping("")
-    public Customer addNewCustomer(@RequestBody Customer customer, @RequestBody Integer empNumber) {
-        return service.createNewCustomer(customer, empNumber);
-    }
+//    @PostMapping("")
+//    public Customer addNewCustomer(@RequestBody Customer customer, @RequestBody Integer empNumber) {
+//        return service.createNewCustomer(customer, empNumber);
+//    }
 
     @PutMapping("/{customerNumber}")
     public Customer updateCustomer(@RequestBody Customer customer, @PathVariable Integer customerNumber) {
@@ -82,4 +79,10 @@ public class CustomerController {
 //        generalException.setTitle("Server Error");
 //        return generalException;
 //    }
+
+    @PostMapping("")
+    public NewCustomerDto createCustomer(
+            @Valid @RequestBody NewCustomerDto newCustomer) {
+        return service.createCustomer(newCustomer);
+    }
 }
