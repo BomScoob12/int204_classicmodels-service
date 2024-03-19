@@ -2,12 +2,15 @@ package sit.int204.classicmodelsservice.services;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import sit.int204.classicmodelsservice.FileStorageProperties;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,11 +46,40 @@ public class FileService {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
             }
             // Copy file to the target location (Replacing existing file with the same name)
-            Path targetLocation= this.fileStorageLocation.resolve(fileName);
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException e) {
-            throw new RuntimeException("Could not store file " + fileName+ ". Please try again!", e);
+            throw new RuntimeException("Could not store file " + fileName + ". Please try again!", e);
+        }
+    }
+
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new RuntimeException("File not found " + fileName);
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("File operation error: " + fileName, e);
+        }
+    }
+
+    public void deleteFile(String filename) {
+        try {
+            Path file = this.fileStorageLocation.resolve(filename);
+            boolean status = Files.deleteIfExists(file);
+            if (status) {
+                System.out.println("Success");
+            } else {
+                System.out.println("Failed");
+                throw new RuntimeException("File not found " + filename);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("File operation error: " + e.getMessage());
         }
     }
 }
