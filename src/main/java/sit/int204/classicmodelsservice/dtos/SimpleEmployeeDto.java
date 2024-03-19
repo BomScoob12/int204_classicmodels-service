@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SimpleEmployeeDto {
-    private Integer employeeNumber;
+    private Integer id;
     @JsonIgnore
     private String firstName;
     @JsonIgnore

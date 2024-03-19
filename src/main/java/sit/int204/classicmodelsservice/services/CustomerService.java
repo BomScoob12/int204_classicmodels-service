@@ -50,7 +50,7 @@ public class CustomerService {
         if (customer == null || empNumber == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer or Employee is doesn't exist or invalid data !!!");
         } else {
-            customer.setEmployeeRep(service.getEmployee(empNumber));
+            customer.setSales(service.getEmployee(empNumber));
             return repository.save(customer);
         }
     }
