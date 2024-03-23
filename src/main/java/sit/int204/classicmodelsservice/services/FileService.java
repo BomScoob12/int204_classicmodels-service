@@ -15,6 +15,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Getter
@@ -80,6 +83,33 @@ public class FileService {
             }
         } catch (IOException e) {
             throw new RuntimeException("File operation error: " + e.getMessage());
+        }
+    }
+
+    //another way
+    public void removeFile(String filename) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(filename).normalize();
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+                System.out.println("Success");
+            } else {
+                System.out.println("Failed");
+                throw new RuntimeException("File not found " + filename);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("File operation error: " + e.getMessage());
+        }
+    }
+
+    public List<String> getAllFile() {
+        try (Stream<Path> stream = Files.list(this.fileStorageLocation)) {
+            return stream.filter(file -> !Files.isDirectory(file))
+                    .map(Path::getFileName)
+                    .map(Path::toString)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

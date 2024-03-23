@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sit.int204.classicmodelsservice.services.FileService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/files")
 public class FileController {
@@ -17,6 +19,10 @@ public class FileController {
     @GetMapping("/test")
     public ResponseEntity<Object> testPropertiesMapping() {
         return ResponseEntity.ok(fileService.getFileStorageLocation() + " has been created !!!");
+    }
+    @GetMapping("")
+    public ResponseEntity<Object> testPropertiesMapping2() {
+        return ResponseEntity.ok(fileService.getAllFile());
     }
 
     @PostMapping("")
