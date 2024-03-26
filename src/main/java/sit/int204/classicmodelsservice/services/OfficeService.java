@@ -21,8 +21,7 @@ public class OfficeService {
     }
 
     public Office getOffice(String officeCode) {
-        return repository.findById(officeCode).orElseThrow(() -> new ItemNotFoundException("Office Id " + officeCode + " DOES NOT EXIST !!!") {
-        });
+        return repository.findById(officeCode).orElseThrow(() -> new ItemNotFoundException("Office Id " + officeCode + " DOES NOT EXIST !!!"));
     }
 
     @Transactional

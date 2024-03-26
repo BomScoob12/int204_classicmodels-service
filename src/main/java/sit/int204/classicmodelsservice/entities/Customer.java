@@ -45,4 +45,7 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders = new LinkedHashSet<>();
+
+    private String password;
+    private String role;
 }

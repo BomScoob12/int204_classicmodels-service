@@ -32,7 +32,7 @@ public class Office {
     private String postalCode;
     @Column(name = "territory", nullable = false, length = 10)
     private String territory;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "office")
     private Set<Employee> employees = new LinkedHashSet<>();
 }
