@@ -26,7 +26,7 @@ public class CustomerService {
     ModelMapper mapper;
     @Autowired
     ListMapper listMapper;
-
+    @Autowired
     EmployeeService service;
 
     public List<Customer> getCustomers() {
