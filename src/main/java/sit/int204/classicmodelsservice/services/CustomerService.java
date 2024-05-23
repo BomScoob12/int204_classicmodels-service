@@ -80,7 +80,4 @@ public class CustomerService {
         Customer customer = mapper.map(newCustomer, Customer.class);
         return mapper.map(repository.saveAndFlush(customer), NewCustomerDto.class);
     }
-    public List<NewCustomerDto> getAllCustomers() {
-        return listMapper.mapList(repository.findAll(), NewCustomerDto.class, mapper);
-    }
 }

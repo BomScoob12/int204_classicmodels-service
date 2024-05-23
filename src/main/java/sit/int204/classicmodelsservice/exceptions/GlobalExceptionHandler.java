@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import sit.int204.classicmodelsservice.controller.CustomerController;
 import sit.int204.classicmodelsservice.controller.ProductController;
 
@@ -64,7 +65,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
 
-        @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -81,6 +82,7 @@ public class GlobalExceptionHandler {
         }
         return ResponseEntity.unprocessableEntity().body(errorResponse);
     }
+
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<ErrorResponse> handleHandlerMethodValidationException(
             HandlerMethodValidationException exception, WebRequest request) {
